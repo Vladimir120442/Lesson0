@@ -1,4 +1,5 @@
 my_string = input()
+#Чем больше я знаю, тем больше понимаю, что я ничего не знаю
 print(my_string)
 print(len(my_string))
 print(my_string.upper())
