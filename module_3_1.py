@@ -1,14 +1,14 @@
 calls = 0
 def count_calls(calls1):
-    calls1 = 1
     global calls
-    calls = calls + calls1
+    calls = calls + 1
     print(calls)
 
 def string_info():
     count_calls(calls)
     string = 'Программирование'
     string = (len(string), string.upper(), string.lower())
+    print(string)
 
 def is_contains():
     count_calls(calls)
@@ -24,7 +24,8 @@ def is_contains():
             break
     print(l)
 
-is_contains()
 string_info()
+is_contains()
+
 
 
