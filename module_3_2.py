@@ -1,4 +1,4 @@
-def send_email(message, recipient,*, sender):
+def send_email(message, recipient,*, sender='university.help@gmail.com'):
     at1 = recipient.count('@')
     at2 = recipient.endswith((".com", ".ru", ".net"), -4)
     dm1 = sender.count('@')
