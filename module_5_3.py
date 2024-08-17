@@ -63,7 +63,6 @@ h1 += 10
 print(h1)
 h2 = 10 + h2
 print(h2)
-
 print(h1 < h2)
 print(h1 <= h2)
 print(h1 > h2)
