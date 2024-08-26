@@ -5,35 +5,33 @@ class Animal:
     def __init__(self, name):
         self.name = name
 
+    def eat(self, food):
+        if food.edible is True:
+            print(f'{self.name} съел {food.name}')
+            self.fed = True
+            return self.fed
+        else:
+            print(f'{self.name} не стал есть {food.name}')
+            self.alive = False
+            return self.alive
+
 
 class Plant:
-    edible = False #Несъедобный цветок
+    edible = False  # Несъедобное растение
+
     def __init__(self, name):
         self.name = name
 
 
 class Mammal(Animal):
-    def eat(self, food):
-        if food.edible is True:
-            print(f'{self.name} съел {food.name}')
-            self.fed = True
-            return self.fed
-        else:
-            print(f'{self.name} не стал есть {food.name}')
-            self.alive = False
-            return self.alive
+    def __init__(self, name):
+        super().__init__(name)
 
 
 class Predator(Animal):
-    def eat(self, food):
-        if food.edible is True:
-            print(f'{self.name} съел {food.name}')
-            self.fed = True
-            return self.fed
-        else:
-            print(f'{self.name} не стал есть {food.name}')
-            self.alive = False
-            return self.alive
+
+    def __init__(self, name):
+        super().__init__(name)
 
 
 class Flower(Plant):
@@ -52,9 +50,9 @@ p2 = Fruit('Заводной апельсин')
 print(a1.name)
 print(p1.name)
 
-print(a1.alive)  # До еды живой
-print(a2.fed)  # До еды голодный
+print(a1.alive)
+print(a2.fed)
 a1.eat(p1)
 a2.eat(p2)
-print(a1.alive)  # Хищник после еды неживой
-print(a2.fed)  # Млекопитающее после еды сытое
+print(a1.alive)  # Хищник не стал есть несъедобную пищу и умер от голода
+print(a2.fed)  # Млекопитающее сытое после еды
