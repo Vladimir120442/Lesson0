@@ -7,8 +7,7 @@ class Product:
         self.category = category  # категория товара (строка)
 
     def __str__(self):
-        all_products = f'{self.name}, {self.weight}, {self.category}'
-        return all_products
+        return f'{self.name}, {self.weight}, {self.category}'
 
 
 class Shop:
@@ -16,17 +15,19 @@ class Shop:
         self.__file_name = 'products.txt'  # список товаров, имеющихся в магазине
 
     def get_products(self):  # для обработки файла products.txt
-        all_products = open(self.__file_name, 'r')
-        return all_products.read()
-        all_products.close()
+        product = open(self.__file_name, 'r')
+        all_products = product.read()
+        product.close()
+        return all_products
 
     def add(self, *products):
-        all_products = open(self.__file_name, 'a')
+        product = open(self.__file_name, 'a')
         for i in products:
             if str(i) not in Shop.get_products(self):
-                all_products.write(f'{i}\n')
+                product.write(f'{i}\n')
             else:
                 print(f'Продукт {str(i)} уже есть в магазине')
+        product.close()
 
 
 s1 = Shop()
