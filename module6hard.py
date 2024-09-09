@@ -23,7 +23,7 @@ class Figure:
         if self.__is_valid_color(r, g, b):
             self.__color = [r, g, b]
 
-    # геттер и сеттер сторон с созданием массива с единичными сторонами
+    # геттер и сеттер сторон, проверки количества переданных сторон
     def __is_valid_sides(self, *sides):
         for i in sides:
             if isinstance(i, int) and i > 0 and len(sides) == self.sides_count:
@@ -48,7 +48,7 @@ class Circle(Figure):
     sides_count = 1
 
     def __init__(self, color, *sides):
-        if len(sides) == 1:  # проверка количества переданных сторон
+        if len(sides) == 1:  # создание единичного массиван
             sides = [*sides] * self.sides_count
         else:
             self.sides = [1] * self.sides_count
@@ -64,7 +64,7 @@ class Triangle(Figure):
     sides_count = 3
 
     def __init__(self, color, *sides):
-        if len(sides) == 1:  # проверка количества переданных сторон
+        if len(sides) == 1:  # создание единичного массива
             sides = [*sides] * self.sides_count
         else:
             self.sides = [1] * self.sides_count
@@ -87,7 +87,7 @@ class Cube(Figure):
     sides_count = 12
 
     def __init__(self, color, *sides):
-        if len(sides) == 1:  # проверка количества переданных сторон
+        if len(sides) == 1:  # создание единичного массива
             sides = [*sides] * self.sides_count
         else:
             self.sides = [1] * self.sides_count
