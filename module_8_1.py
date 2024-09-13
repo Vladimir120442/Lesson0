@@ -4,12 +4,12 @@ def add_everything_up(a, b):
             result = a + b
             print('Ошибок нет')
             return f'{result:.3f}'
-        if type(a) != type(b):
-            result = a + b
-            return result
         if isinstance(a, str) and isinstance(b, str):
             result = str(a) + ' ' + str(b)
             print('Ошибок нет')
+            return result
+        if type(a) != type(b):
+            result = a + b
             return result
     except TypeError as exc:
         print(f'Вот такая ошибка:  {exc}')
