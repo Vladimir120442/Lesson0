@@ -1,9 +1,8 @@
 class Car:
     def __init__(self, model: str, vin_number: int, numbers: str):
         self.model = model
-
-        if self.__is_valid_vin(vin_number):     #вызов __is_valid_vin и __is_valid_numbers
-            self.__vin_number = vin_number      #для корректного создания атрибутов класса
+        if self.__is_valid_vin(vin_number):  # вызов __is_valid_vin и __is_valid_numbers
+            self.__vin_number = vin_number  # для корректного создания атрибутов класса
         if self.__is_valid_numbers(numbers):
             self.__numbers = numbers
 
@@ -19,7 +18,7 @@ class Car:
         return True
 
     def __is_valid_numbers(self, numbers):
-        if not isinstance(numbers, str):        #вариант проверки на корректность через оператор not
+        if not isinstance(numbers, str):  # вариант проверки на корректность через оператор not
             raise IncorrectCarNumbers('Некорректный тип данных для номеров')
         if not len(numbers) == 6:
             raise IncorrectCarNumbers('Неверная длина номера')
