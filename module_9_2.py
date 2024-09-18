@@ -9,5 +9,3 @@ third_result = {z: len(z) for z in (first_strings + second_result) if len(z) % 2
 print(first_result)
 print(second_result)
 print(third_result)
-
-
