@@ -10,34 +10,23 @@ class Bank:
 
     def deposit(self):
         for _ in range(100):
+            if self.balance >= 500 and self.lock.locked():
+                self.lock.release()
             amount_deposit = random.randint(50, 500)  # Генерация суммы пополнения баланса
-            self.lock.acquire()  # Начальная блокировка баланса
-
-            try:    # Для проверки и исключения "гонки" потоков
-                self.balance += amount_deposit
-                print(f'Пополнение на сумму: {amount_deposit}. Баланс: {self.balance} у.е.\n')
-                if self.balance >= 500:  # Проверка баланса (необязательно)
-                    pass
-            finally:
-                self.lock.release()  # Снятие блокировки баланса
-
+            self.balance += amount_deposit
+            print(f'Пополнение на сумму: {amount_deposit}. Баланс: {self.balance} у.е.')
             time.sleep(0.001)
 
     def take(self):
         for _ in range(100):
             withdrawal_deposit = random.randint(50, 500)  # Генерация суммы снятия средств
-            print(f'Запрос снятия средств на сумму {withdrawal_deposit}\n')
-            self.lock.acquire()  # Начальная блокировка баланса
-
-            try:    # Для проверки и исключения "гонки" потоков
-                if withdrawal_deposit <= self.balance:
-                    self.balance -= withdrawal_deposit
-                    print(f'Снятие средств на сумму: {withdrawal_deposit}. Баланс: {self.balance} у.е.')
-                else:
-                    print('Запрос отклонён, недостаточно средств')
-            finally:
-                self.lock.release()  # Снятие блокировки баланса
-
+            print(f'Запрос снятия средств на сумму {withdrawal_deposit}')
+            if withdrawal_deposit <= self.balance:
+                self.balance -= withdrawal_deposit
+                print(f'Снятие средств на сумму: {withdrawal_deposit}. Баланс: {self.balance} у.е.')
+            else:
+                print('Запрос отклонён, недостаточно средств')
+                self.lock.acquire()
             time.sleep(0.001)
 
 
@@ -55,4 +44,3 @@ th1.join()
 th2.join()
 
 print(f'Итоговый баланс: {bk.balance} у.е.')
-
