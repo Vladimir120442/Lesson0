@@ -7,47 +7,30 @@ from aiogram.utils import executor
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+from module_13_6_new import inline_kb
 
-api = '7827008035:AAHswPvdhgDahRmGtUE4NQFNBUIMbw9cw5k'
+api = '###'
 
 bot = Bot(token=api)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
-#Создание первичного меню
-kb = ReplyKeyboardMarkup(resize_keyboard = True)
-button1 = KeyboardButton(text = 'Рассчитать')
-button2 = KeyboardButton(text = 'Информация')
-kb.add(button1)
-kb.add(button2)
-@dp.message_handler(commands=['start'])
-async def start_cmd(message):
-    await message.answer('Привет! Я - бот, помогающий твоему здоровью.                                 '
-                         'Для расчета калорий нажми "Рассчитать", '
-                         'для получения информации - "Информация"', reply_markup = kb)
-#Вывод по кнопке "Информация" из первичного меню
-@dp.message_handler(text = 'Информация')
-async def inf0_bot(message):
-    await message.answer('Я - бот, помогающий твоему здоровью.'
-                         'Я рассчитываю твою суточную норму калорий '
-                         'по формуле Миффлина - Сан Жеора', reply_markup = kb)
-
 #Создание инлайн-клавиатуры
-kb1 = InlineKeyboardMarkup()
-button3 = InlineKeyboardButton(text = 'Рассчитать норму калорий', callback_data = 'calories')
-button4 = InlineKeyboardButton(text = 'Формулы расчета', callback_data = 'formulas')
-kb1.add(button3)
-kb1.add(button4)
+inline_kb = InlineKeyboardMarkup()
+button1 = InlineKeyboardButton(text = 'Рассчитать норму калорий', callback_data = 'calories')
+button2 = InlineKeyboardButton(text = 'Формулы расчета', callback_data = 'formulas')
+inline_kb.row(button1, button2)
+
 @dp.message_handler(text = 'Рассчитать')
 async def main_menu(message):
-    await message.answer('Выберите опцию', reply_markup = kb1)
+    await message.answer('Выберите опцию', reply_markup = inline_kb)
 
-@dp.callback_query_handler(text = 'formylas')
+@dp.callback_query_handler(text = 'formulas')
 async def get_formulas(call):
     await call.message.answer('Формула Миффлина - Сан Жеора '
                          'для расчета суточной нормы калорий для мужчин: '
                          'Calories = 10 х вес (кг) + 6,25 x рост (см) – 5 х возраст (г) + 5)',
-                          reply_markup = kb1)
+                          reply_markup = inline_kb)
     await call.answer()
 
 #Класс состояния (возраст, рост, вес)
@@ -85,7 +68,7 @@ async def send_calories(message, state):
                    (6.25 * float(data['Рост'])) -
                    (5 * float(data['Возраст'])) + 5)
 
-    await message.answer(f'Твоя суточная норма - {calories} ккал')
+    await message.answer(f'Ваша норма калорий - {calories} ккал')
 
     await state.finish()
 
